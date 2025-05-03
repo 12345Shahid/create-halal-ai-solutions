@@ -56,9 +56,9 @@ const PlanInquiry = () => {
       <div className="container mx-auto px-4 py-12">
         <Card className="max-w-xl mx-auto">
           <CardHeader>
-            <CardTitle>Inquire About {planName} Plan</CardTitle>
+            <CardTitle>Start Your AI Startup Journey</CardTitle>
             <CardDescription>
-              Please provide your details and requirements for the {planName} plan, and our team will get back to you shortly.
+              Please provide details about your personalized AI project with the {planName} plan, and our team will get back to you shortly.
             </CardDescription>
           </CardHeader>
           

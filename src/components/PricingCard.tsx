@@ -15,6 +15,7 @@ interface PricingCardProps {
   description: string;
   features: PricingFeature[];
   popular?: boolean;
+  isCustom?: boolean;
 }
 
 const PricingCard = ({
@@ -23,6 +24,7 @@ const PricingCard = ({
   description,
   features,
   popular = false,
+  isCustom = false,
 }: PricingCardProps) => {
   const navigate = useNavigate();
   
@@ -40,8 +42,14 @@ const PricingCard = ({
         )}
         <CardTitle className="text-2xl font-bold">{name}</CardTitle>
         <div className="mt-2 flex items-baseline">
-          <span className="text-4xl font-bold">${price}</span>
-          <span className="ml-1 text-muted-foreground">/month</span>
+          {isCustom ? (
+            <span className="text-4xl font-bold">{price}</span>
+          ) : (
+            <>
+              <span className="text-4xl font-bold">${price}</span>
+              <span className="ml-1 text-muted-foreground">/month</span>
+            </>
+          )}
         </div>
         <CardDescription className="mt-3">{description}</CardDescription>
       </CardHeader>

@@ -176,6 +176,7 @@ const AIStartup = () => {
               price="Contact us"
               description="Tailored solutions for enterprises with unique requirements."
               features={customFeatures}
+              isCustom={true}
             />
           </div>
         </div>
