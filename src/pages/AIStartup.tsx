@@ -30,6 +30,18 @@ const AIStartup = () => {
     { text: "Free $2 API fee for models" },
   ];
 
+  const customFeatures = [
+    { text: "Everything in Business plan" },
+    { text: "Unlimited AI models" },
+    { text: "Custom features based on your needs" },
+    { text: "Enterprise-grade support" },
+    { text: "Advanced integrations" },
+    { text: "Custom branding" },
+    { text: "Priority development" },
+    { text: "Dedicated account manager" },
+    { text: "Custom API usage and billing" },
+  ];
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -143,7 +155,7 @@ const AIStartup = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <PricingCard
               name="Starter"
               price="3"
@@ -157,6 +169,13 @@ const AIStartup = () => {
               description="Advanced features for businesses serious about AI implementation."
               features={businessFeatures}
               popular={true}
+            />
+            
+            <PricingCard
+              name="Custom"
+              price="Contact us"
+              description="Tailored solutions for enterprises with unique requirements."
+              features={customFeatures}
             />
           </div>
         </div>

@@ -3,6 +3,7 @@ import React from 'react';
 import { Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { useNavigate } from 'react-router-dom';
 
 interface PricingFeature {
   text: string;
@@ -23,6 +24,12 @@ const PricingCard = ({
   features,
   popular = false,
 }: PricingCardProps) => {
+  const navigate = useNavigate();
+  
+  const handleGetStarted = () => {
+    navigate('/plan-inquiry', { state: { planName: name } });
+  };
+  
   return (
     <Card className={`w-full ${popular ? 'border-primary shadow-md' : 'border-border'}`}>
       <CardHeader>
@@ -53,6 +60,7 @@ const PricingCard = ({
           variant={popular ? "default" : "outline"}
           size="lg"
           className="w-full"
+          onClick={handleGetStarted}
         >
           Get Started
         </Button>
