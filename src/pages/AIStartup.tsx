@@ -159,6 +159,7 @@ const AIStartup = () => {
             <PricingCard
               name="Starter"
               price="3"
+              altCurrency={{ symbol: "BDT", price: "400" }}
               description="Perfect for individuals and small projects getting started with AI."
               features={starterFeatures}
             />
@@ -166,6 +167,7 @@ const AIStartup = () => {
             <PricingCard
               name="Business"
               price="12"
+              altCurrency={{ symbol: "BDT", price: "1500" }}
               description="Advanced features for businesses serious about AI implementation."
               features={businessFeatures}
               popular={true}

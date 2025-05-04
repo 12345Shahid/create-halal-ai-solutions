@@ -16,6 +16,10 @@ interface PricingCardProps {
   features: PricingFeature[];
   popular?: boolean;
   isCustom?: boolean;
+  altCurrency?: {
+    symbol: string;
+    price: string;
+  };
 }
 
 const PricingCard = ({
@@ -25,6 +29,7 @@ const PricingCard = ({
   features,
   popular = false,
   isCustom = false,
+  altCurrency,
 }: PricingCardProps) => {
   const navigate = useNavigate();
   
@@ -41,14 +46,22 @@ const PricingCard = ({
           </div>
         )}
         <CardTitle className="text-2xl font-bold">{name}</CardTitle>
-        <div className="mt-2 flex items-baseline">
+        <div className="mt-2 flex flex-col">
           {isCustom ? (
             <span className="text-4xl font-bold">{price}</span>
           ) : (
-            <>
-              <span className="text-4xl font-bold">${price}</span>
-              <span className="ml-1 text-muted-foreground">/month</span>
-            </>
+            <div className="flex flex-col gap-1">
+              <div className="flex items-baseline">
+                <span className="text-4xl font-bold">${price}</span>
+                <span className="ml-1 text-muted-foreground">/month</span>
+              </div>
+              {altCurrency && (
+                <div className="flex items-baseline text-sm text-muted-foreground">
+                  <span className="font-medium">{altCurrency.symbol} {altCurrency.price}</span>
+                  <span className="ml-1">/month</span>
+                </div>
+              )}
+            </div>
           )}
         </div>
         <CardDescription className="mt-3">{description}</CardDescription>
