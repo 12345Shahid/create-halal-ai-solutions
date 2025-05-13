@@ -25,6 +25,9 @@ const Navbar = () => {
             <Link to="/ai-startup" className="font-medium hover:text-primary transition-colors">
               AI Startup
             </Link>
+            <Link to="/solutions" className="font-medium hover:text-primary transition-colors">
+              Solutions
+            </Link>
             <Link to="/contact" className="font-medium hover:text-primary transition-colors">
               Contact
             </Link>
@@ -66,6 +69,13 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)}
             >
               AI Startup
+            </Link>
+            <Link 
+              to="/solutions" 
+              className="block py-2 font-medium hover:text-primary transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              Solutions
             </Link>
             <Link 
               to="/contact" 

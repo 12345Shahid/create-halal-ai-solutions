@@ -16,6 +16,7 @@ import Register from "./pages/Register";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 import PlanInquiry from "./pages/PlanInquiry";
+import Solutions from "./pages/Solutions";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/ai-startup" element={<AIStartup />} />
+            <Route path="/solutions" element={<Solutions />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
