@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 interface PricingFeature {
   text: string;
+  icon?: React.ReactNode;
 }
 
 interface PricingCardProps {
@@ -70,8 +71,8 @@ const PricingCard = ({
         <ul className="space-y-3 mt-2">
           {features.map((feature, index) => (
             <li key={index} className="flex items-start">
-              <Check className="h-5 w-5 text-primary flex-shrink-0 mr-2 mt-0.5" />
-              <span>{feature.text}</span>
+              {feature.icon || <Check className="h-5 w-5 text-primary flex-shrink-0 mr-2 mt-0.5" />}
+              <span className="ml-2">{feature.text}</span>
             </li>
           ))}
         </ul>

@@ -1,6 +1,8 @@
+
 import React from 'react';
 import Layout from '@/components/Layout';
 import PricingCard from '@/components/PricingCard';
+import { Star, Domain, Server } from 'lucide-react';
 
 const AIStartup = () => {
   // Define pricing features
@@ -14,6 +16,9 @@ const AIStartup = () => {
     { text: "Copy AI response functionality" },
     { text: "Basic static pages (About, Contact, etc.)" },
     { text: "Dashboard for tracking credits" },
+    { text: "Trained AI specifically for your business", icon: <Star className="h-4 w-4 text-yellow-400" /> },
+    { text: "Completely free subdomain", icon: <Domain className="h-4 w-4 text-primary" /> },
+    { text: "Completely free lifetime hosting", icon: <Server className="h-4 w-4 text-primary" /> },
   ];
 
   const businessFeatures = [
@@ -26,6 +31,9 @@ const AIStartup = () => {
     { text: "Advanced UI customization (colors, fonts, etc.)" },
     { text: "Custom image uploads" },
     { text: "Free $2 API fee for models" },
+    { text: "Trained AI specifically for your business", icon: <Star className="h-4 w-4 text-yellow-400" /> },
+    { text: "Completely free subdomain", icon: <Domain className="h-4 w-4 text-primary" /> },
+    { text: "Completely free lifetime hosting", icon: <Server className="h-4 w-4 text-primary" /> },
   ];
 
   const customFeatures = [
