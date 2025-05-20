@@ -31,14 +31,19 @@ const Navbar = () => {
             <Link to="/contact" className="font-medium hover:text-primary transition-colors">
               Contact
             </Link>
-            <div className="ml-6 flex items-center space-x-3">
-              <Button variant="outline" asChild>
-                <Link to="/login">Login</Link>
-              </Button>
-              <Button asChild>
-                <Link to="/register">Sign Up</Link>
-              </Button>
-            </div>
+            {/* 
+              Authentication buttons removed as requested.
+              To re-enable authentication in the future, add this code back:
+              
+              <div className="ml-6 flex items-center space-x-3">
+                <Button variant="outline" asChild>
+                  <Link to="/login">Login</Link>
+                </Button>
+                <Button asChild>
+                  <Link to="/register">Sign Up</Link>
+                </Button>
+              </div>
+            */}
           </div>
 
           {/* Mobile menu button */}
@@ -84,14 +89,19 @@ const Navbar = () => {
             >
               Contact
             </Link>
-            <div className="pt-2 flex flex-col space-y-2">
-              <Button variant="outline" asChild>
-                <Link to="/login" onClick={() => setIsOpen(false)}>Login</Link>
-              </Button>
-              <Button asChild>
-                <Link to="/register" onClick={() => setIsOpen(false)}>Sign Up</Link>
-              </Button>
-            </div>
+            {/* 
+              Authentication buttons removed from mobile menu as requested.
+              To re-enable authentication in the future, add this code back:
+              
+              <div className="pt-2 flex flex-col space-y-2">
+                <Button variant="outline" asChild>
+                  <Link to="/login" onClick={() => setIsOpen(false)}>Login</Link>
+                </Button>
+                <Button asChild>
+                  <Link to="/register" onClick={() => setIsOpen(false)}>Sign Up</Link>
+                </Button>
+              </div>
+            */}
           </div>
         )}
       </div>
