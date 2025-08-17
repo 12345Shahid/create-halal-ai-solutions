@@ -2,6 +2,7 @@
 import React from 'react';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
+import PhoneWidget from '@/components/PhoneWidget';
 
 const Contact = () => {
   return (
@@ -87,6 +88,7 @@ const Contact = () => {
           </Button>
         </div>
       </section>
+      <PhoneWidget />
     </Layout>
   );
 };
