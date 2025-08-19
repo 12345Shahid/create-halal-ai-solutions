@@ -24,5 +24,122 @@
     <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Combined Chat + Call Widget -->
+    <style>
+      /* Floating button */
+      #support-widget-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #b22222; /* Deep red for restaurants, change if needed */
+        color: white;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        font-size: 26px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        z-index: 9999;
+      }
+
+      /* Modal container */
+      #support-widget {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 380px;
+        height: 500px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        z-index: 99999;
+      }
+
+      /* Tabs */
+      .widget-tabs {
+        display: flex;
+        background: #f5f5f5;
+        border-bottom: 1px solid #ddd;
+      }
+      .widget-tabs button {
+        flex: 1;
+        padding: 10px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        font-weight: bold;
+      }
+      .widget-tabs button.active {
+        background: #b22222;
+        color: white;
+      }
+
+      /* Frames */
+      .widget-content {
+        flex: 1;
+        display: none;
+        height: 100%;
+      }
+      .widget-content.active {
+        display: block;
+      }
+      .widget-content iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
+
+    <!-- Floating button -->
+    <div id="support-widget-btn">💬</div>
+
+    <!-- Widget Modal -->
+    <div id="support-widget">
+      <div class="widget-tabs">
+        <button id="chat-tab" class="active">Chat</button>
+        <button id="call-tab">Call</button>
+      </div>
+      <div id="chat-content" class="widget-content active">
+        <!-- GHL Conversational AI -->
+        <script 
+          src="https://beta.leadconnectorhq.com/loader.js"  
+          data-resources-url="https://beta.leadconnectorhq.com/chat-widget/loader.js" 
+          data-widget-id="687a182eafd5323cd1f8693e"> 
+        </script>
+      </div>
+      <div id="call-content" class="widget-content">
+        <!-- MSMillis Calling AI -->
+        <iframe src="https://app.millis.ai/agents/embedded?id=-OXm8bCzYPYdbDQm65RV&k=YwMtjJ6XgQH1RAyujYupfBGwq2zUecLQ" allow="microphone"></iframe>
+      </div>
+    </div>
+
+    <script>
+      // Toggle modal
+      document.getElementById('support-widget-btn').addEventListener('click', () => {
+        const widget = document.getElementById('support-widget');
+        widget.style.display = widget.style.display === 'flex' ? 'none' : 'flex';
+      });
+
+      // Switch between tabs
+      document.getElementById('chat-tab').addEventListener('click', () => {
+        document.getElementById('chat-content').classList.add('active');
+        document.getElementById('call-content').classList.remove('active');
+        document.getElementById('chat-tab').classList.add('active');
+        document.getElementById('call-tab').classList.remove('active');
+      });
+      document.getElementById('call-tab').addEventListener('click', () => {
+        document.getElementById('call-content').classList.add('active');
+        document.getElementById('chat-content').classList.remove('active');
+        document.getElementById('call-tab').classList.add('active');
+        document.getElementById('chat-tab').classList.remove('active');
+      });
+    </script>
   </body>
 </html>
