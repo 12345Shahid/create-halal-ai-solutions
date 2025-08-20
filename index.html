@@ -69,14 +69,9 @@
         font-size: 15px;
         font-weight: 500;
       }
-      .btn-call {
-        background: #2196F3;
-        color: white;
-      }
-      .btn-chat {
-        background: #FF5722;
-        color: white;
-      }
+      .btn-call { background: #2196F3; color: white; }
+      .btn-chat { background: #FF5722; color: white; }
+
       .millis-panel {
         position: fixed;
         bottom: 90px;
@@ -106,13 +101,19 @@
         color: white;
         font-size: 14px;
       }
-      .millis-close {
+      .millis-actions span {
         cursor: pointer;
+        margin-left: 12px;
         font-weight: bold;
+      }
+
+      /* For hiding/showing Go High Level widget */
+      .gohigh-hidden {
+        display: none !important;
       }
     </style>
 
-    <!-- Floating Mic Button -->
+    <!-- Floating Launcher -->
     <div class="launcher-btn" onclick="toggleChoicePanel()">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 14 0h-2zM12 17a7.001 7.001 0 0 1-6.93-6H3a9 9 0 0 0 18 0h-2.07A7.001 7.001 0 0 1 12 17zm-1 2h2v3h-2v-3z"/>
@@ -129,7 +130,10 @@
     <div class="millis-panel" id="millisPanel">
       <div class="millis-panel-header">
         Voice Agent
-        <span class="millis-close" onclick="closeMillis()">&times;</span>
+        <div class="millis-actions">
+          <span onclick="backToMenu()">⬅ Menu</span>
+          <span onclick="closeMillis()">&times;</span>
+        </div>
       </div>
       <iframe src="https://app.millis.ai/agents/embedded?id=-OXm8bCzYPYdbDQm65RV&k=YwMtjJ6XgQH1RAyujYupfBGwq2zUecLQ&c=eJxlkN1qwzAMhV%2FFGAYJJGkcmmx1L%2FsIvd2NEzuumGMHS6Fjpe8%2Bh4x1P2AMR0f%2BfKQbJyBnkMsbB%2B0Ml%2FxMKhIv%2BBC8NwOBt6l4%2BhZVVSUzLt5vzpnCzO8Fh9T%2FEzM%2BywmGvxxSvTNR6kD4i7J1l%2BgUXlZavxAFf0JcPXCU3jAdw1ziRelwzWpWs6ad31m0vcpEd0iqYaI5sB1r66c8P776Xg1vNobF6xImZY1kDrxRsbRRaTCeMiFabWyxQrJ9x7azY6JOhH%2FVl%2BYLG6Je44j0OwYHesvQtG3BHlddNfv8mGYcQ5y2OZJ4RNo0wkfalejqglNUHocIM3E5KocmrcdYCD51LlheDRK%2FfwIxoISd" allow="microphone"></iframe>
     </div>
@@ -149,6 +153,11 @@
         document.getElementById('millisPanel').style.display = 'none';
       }
 
+      function backToMenu() {
+        document.getElementById('millisPanel').style.display = 'none';
+        document.getElementById('choicePanel').style.display = 'flex';
+      }
+
       function openChat() {
         document.getElementById('choicePanel').style.display = 'none';
         // Only inject once
@@ -159,6 +168,30 @@
           s.setAttribute("data-widget-id", "687a182eafd5323cd1f8693e");
           document.body.appendChild(s);
           window.chatLoaded = true;
+
+          // Wait for widget to render, then add a back button overlay
+          setTimeout(() => {
+            const backBtn = document.createElement('div');
+            backBtn.innerText = "⬅ Menu";
+            backBtn.style.position = "fixed";
+            backBtn.style.bottom = "80px";
+            backBtn.style.right = "20px";
+            backBtn.style.background = "#FF5722";
+            backBtn.style.color = "white";
+            backBtn.style.padding = "6px 12px";
+            backBtn.style.borderRadius = "6px";
+            backBtn.style.cursor = "pointer";
+            backBtn.style.zIndex = "10000";
+            backBtn.onclick = function() {
+              // Hide chat widget
+              document.querySelectorAll("iframe[src*='leadconnectorhq']").forEach(el => el.classList.add('gohigh-hidden'));
+              document.getElementById('choicePanel').style.display = 'flex';
+            };
+            document.body.appendChild(backBtn);
+          }, 2000);
+        } else {
+          // Just show already loaded widget again
+          document.querySelectorAll("iframe[src*='leadconnectorhq']").forEach(el => el.classList.remove('gohigh-hidden'));
         }
       }
     </script>
