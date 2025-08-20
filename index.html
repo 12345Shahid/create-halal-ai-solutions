@@ -25,31 +25,57 @@
     <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
     
-    <!-- Millis Voice Agent Wrapper -->
+    <!-- Unified Launcher for Call (Millis) + Chat (Go High Level) -->
     <style>
-      .millis-launcher {
+      .launcher-btn {
         position: fixed;
         bottom: 20px;
         right: 20px;
         width: 60px;
         height: 60px;
         border-radius: 50%;
-        background-color: #4CAF50; /* Change to your brand color */
+        background: #4CAF50;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.25);
         z-index: 9999;
-        transition: all 0.3s ease;
       }
-      .millis-launcher:hover {
-        background-color: #45a049;
-      }
-      .millis-launcher svg {
+      .launcher-btn svg {
         width: 28px;
         height: 28px;
         fill: white;
+      }
+      .choice-panel {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        display: none;
+        flex-direction: column;
+        padding: 15px;
+        width: 220px;
+        z-index: 9998;
+      }
+      .choice-panel button {
+        margin: 6px 0;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 500;
+      }
+      .btn-call {
+        background: #2196F3;
+        color: white;
+      }
+      .btn-chat {
+        background: #FF5722;
+        color: white;
       }
       .millis-panel {
         position: fixed;
@@ -63,7 +89,7 @@
         overflow: hidden;
         display: none;
         flex-direction: column;
-        z-index: 9998;
+        z-index: 9997;
       }
       .millis-panel iframe {
         border: none;
@@ -72,7 +98,7 @@
       }
       .millis-panel-header {
         height: 40px;
-        background: #4CAF50; /* Match launcher color */
+        background: #2196F3;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -86,25 +112,54 @@
       }
     </style>
 
-    <div class="millis-launcher" onclick="toggleMillisPanel()">
-      <!-- Mic icon -->
+    <!-- Floating Mic Button -->
+    <div class="launcher-btn" onclick="toggleChoicePanel()">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 14 0h-2zM12 17a7.001 7.001 0 0 1-6.93-6H3a9 9 0 0 0 18 0h-2.07A7.001 7.001 0 0 1 12 17zm-1 2h2v3h-2v-3z"/>
       </svg>
     </div>
 
+    <!-- Choice Panel -->
+    <div class="choice-panel" id="choicePanel">
+      <button class="btn-call" onclick="openMillis()">📞 Call</button>
+      <button class="btn-chat" onclick="openChat()">💬 Chat</button>
+    </div>
+
+    <!-- Millis Voice Agent Panel -->
     <div class="millis-panel" id="millisPanel">
       <div class="millis-panel-header">
         Voice Agent
-        <span class="millis-close" onclick="toggleMillisPanel()">&times;</span>
+        <span class="millis-close" onclick="closeMillis()">&times;</span>
       </div>
       <iframe src="https://app.millis.ai/agents/embedded?id=-OXm8bCzYPYdbDQm65RV&k=YwMtjJ6XgQH1RAyujYupfBGwq2zUecLQ&c=eJxlkN1qwzAMhV%2FFGAYJJGkcmmx1L%2FsIvd2NEzuumGMHS6Fjpe8%2Bh4x1P2AMR0f%2BfKQbJyBnkMsbB%2B0Ml%2FxMKhIv%2BBC8NwOBt6l4%2BhZVVSUzLt5vzpnCzO8Fh9T%2FEzM%2BywmGvxxSvTNR6kD4i7J1l%2BgUXlZavxAFf0JcPXCU3jAdw1ziRelwzWpWs6ad31m0vcpEd0iqYaI5sB1r66c8P776Xg1vNobF6xImZY1kDrxRsbRRaTCeMiFabWyxQrJ9x7azY6JOhH%2FVl%2BYLG6Je44j0OwYHesvQtG3BHlddNfv8mGYcQ5y2OZJ4RNo0wkfalejqglNUHocIM3E5KocmrcdYCD51LlheDRK%2FfwIxoISd" allow="microphone"></iframe>
     </div>
 
     <script>
-      function toggleMillisPanel() {
-        const panel = document.getElementById('millisPanel');
+      function toggleChoicePanel() {
+        const panel = document.getElementById('choicePanel');
         panel.style.display = panel.style.display === 'flex' ? 'none' : 'flex';
+      }
+
+      function openMillis() {
+        document.getElementById('choicePanel').style.display = 'none';
+        document.getElementById('millisPanel').style.display = 'flex';
+      }
+
+      function closeMillis() {
+        document.getElementById('millisPanel').style.display = 'none';
+      }
+
+      function openChat() {
+        document.getElementById('choicePanel').style.display = 'none';
+        // Only inject once
+        if (!window.chatLoaded) {
+          var s = document.createElement('script');
+          s.src = "https://beta.leadconnectorhq.com/loader.js";
+          s.setAttribute("data-resources-url", "https://beta.leadconnectorhq.com/chat-widget/loader.js");
+          s.setAttribute("data-widget-id", "687a182eafd5323cd1f8693e");
+          document.body.appendChild(s);
+          window.chatLoaded = true;
+        }
       }
     </script>
   </body>
